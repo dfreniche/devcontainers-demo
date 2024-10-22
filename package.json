@@ -1,0 +1,17 @@
+{
+  "name": "mongodb-api",
+  "version": "1.0.0",
+  "description": "A simple MongoDB backed Node.js Express API",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "diego.freniche@mongodb.com",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mongodb": "^6.9.0"
+  },
+  "scripts": {
+    "start": "npm run start:dev",
+    "start:dev": "nodemon --config nodemon.json",
+    "start:prod": "npm install && node index.js"
+  }
+}

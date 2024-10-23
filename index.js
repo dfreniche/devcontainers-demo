@@ -1,6 +1,6 @@
 const express = require('express');
 const { client, createDocument, readDocuments, connectToMongoDB, deleteDocument } = require('./mongodb');
-var ObjectId = require('mongodb').ObjectId; 
+var ObjectId = require('mongodb').ObjectId;
 
 // Express app listening on port 3000
 const app = express();
@@ -9,7 +9,7 @@ app.use(express.json());
 const port = 3000;
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send('Hello World, API is working!');
 });
 
 app.get('/contacts', async (req, res) => {
@@ -20,7 +20,7 @@ app.get('/contacts', async (req, res) => {
     const documents = await readDocuments("mycollection");
     console.log('Documents:', documents);
 
-    message = message + JSON.stringify(documents);    
+    message = message + JSON.stringify(documents);
     res.send(message);
 });
 
@@ -30,21 +30,21 @@ app.post('/contacts', async (req, res) => {
     await connectToMongoDB();
     // Insert a doc
     const insertedId = await createDocument("mycollection", { name: req.body.name, age: req.body.age });
- 
+
     // updateDocument("mycollection", { name: "John" }, { age: 31 });
     // deleteDocument("mycollection", { name: "John" });
-    
+
     res.send("Inserted doc with _id " + insertedId);
 });
 
 app.delete("/contacts/:id", async (req, res) => {
-  var message = "Deleted " + req.params.id;
-  console.log(req.params.id);
-  await connectToMongoDB();
- 
-  await deleteDocument("mycollection", { _id: new ObjectId(req.params.id) });
-  message = message + " all OK";
-  res.send(message);
+    var message = "Deleted " + req.params.id;
+    console.log(req.params.id);
+    await connectToMongoDB();
+
+    await deleteDocument("mycollection", { _id: new ObjectId(req.params.id) });
+    message = message + " all OK";
+    res.send(message);
 });
 
 
